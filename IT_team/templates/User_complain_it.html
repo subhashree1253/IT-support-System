@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WODC FTMS</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  {% include 'link.html' %}
+</head>
+
+
+<!-- navbar -->
+
+ {% include 'ase.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">EMPLOYEE</h1>
+        </div><!-- /.col -->
+
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">User Complain Details Table</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">Sl no</th>
+                      <th>Employee Name</th>
+                        <th>Complain Type</th>
+                        <th>Description</th>
+                        <th>Forword To</th>  
+                        <th style="width: 10px">Complain Date</th>
+                        <th style="width: 10px">Complain Time</th>
+                        <th style="width: 10px" bgcolor=>Complain Status</th>
+                           
+                        <th style="width: 10px">Res.Date</th>
+                        <th style="width: 10px">Time</th>
+                        <th style="width: 10px">Action</th>
+                        
+                    </tr>
+                  </thead >
+                    
+                   <tbody>
+                {% for c in complains %}
+                
+                  {% if c.complain_status == "Resolved" %}
+                    <tr style="background-color: #d4edda;" > <!-- light green -->
+                  {% else %}
+                    <tr style="background-color: #f8d7da;"> <!-- light red -->
+                  {% endif %}
+                
+
+                  <td>{{ forloop.counter }}</td>
+            
+                  <td>{{ c.user.username }}</td>
+                  <td>{{ c.complain_type.complain }}</td>
+                  <td>{{ c.complain_desc.description }}</td>
+                  <td>{{ c.it_team.name }}</td>
+                  <td>{{ c.complain_dt }}</td>
+                  <td>{{ c.complain_time }}</td>
+                   <td>
+                      {% if c.complain_status == 'Resolved' %}
+                      <span class="badge bg-success">Resolved</span>
+                     
+                      {% else %}
+                      <span class="badge bg-danger">Pending</span>
+                      {% endif %}
+                      </td>
+                
+                  <td>{{ c.resolve_dt }}</td>
+                  <td>{{ c.resolve_time }}</td>
+                  <td>
+                            <a href="{% url 'update_user_complain' c.user_complain_id %}" class="btn btn-sm btn-primary">
+                              Update
+
+                            
+
+                            </a>                            
+                          </td>
+                 
+                    {% comment %} <a href="{% url 'delete_user_complain' c.user_complain_id %}"><i class="fa fa-trash text-danger ml-2"></i></a> {% endcomment %}
+                  </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="9">No complaints found.</td></tr>
+                {% endfor %}
+              </tbody>
+                </table>
+              </div>
+            </div></div></div></div></section>
+      </div>
+        </div>
+    </div>
+  </section>
+
+</div>
+ 
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="update" class="btn btn-primary">Update</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+      
+         
+
+</div>
+
+<!-- /.content -->
+</div>
+{% include 'footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- wrapper -->
+
+<!-- jQuery -->
+<!-- jQuery -->
+
+{include 'scriptfile.html' %}

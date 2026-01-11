@@ -1,0 +1,229 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WODC FTMS</title>
+
+  {% include 'link.html' %}
+</head>
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+
+<!-- navbar -->
+{% include 'base.html' %}
+
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">EMPLOYEE</h1>
+        </div><!-- /.col -->
+
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">USER DETAILS</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+          
+
+            
+            
+          </div>
+          <!-- /.card -->
+      
+         <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">User Details Table
+                  <a href="{% url 'add_user' %}" class="btn btn-warning">Add User</a>
+                </h3>
+                
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">Sl no</th>
+                      <th>Department Name</th>
+                      <th>Employee Name</th>
+                        <th>IP Address</th>
+                        <th>System Name</th>
+                        <th>Mobile No.</th>  
+                        <th>Email Id.</th>  
+                        
+                      <th style="width: 40px">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   {% for user in users %}
+                      <tr>
+                        <td>{{ forloop.counter }}</td>
+
+                        <td>{{ user.dept.department }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.user_ip }}</td>
+                        <td>{{ user.system_name }}</td>
+                        <td>{{ user.mobile }}</td>
+                        <td>{{ user.email_id }}</td>
+                        <td>
+                          <a href="{% url 'edit_user' user.user_id %}"><i class="fa fa-edit"></i></a>
+                          <a href="{% url 'delete_user' user.user_id %}" onclick="return confirm('Are you sure you want to delete this user?')">
+                            <i class="fa fa-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+
+                    
+                   
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div></div></div></div></section>
+      </div>
+        </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- /.content -->
+</div>
+ {% include 'footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- wrapper -->
+
+<!-- jQuery -->
+<!-- jQuery -->
+
+ {% include 'scriptfile.html' %}
+<script>
+  function validateForm() {
+    // Add your validation logic here
+    return true; // Return false to prevent form submission
+  }
+  document.getElementById("submit").addEventListener("click", function(event) {
+    if (!validateForm()) {
+      event.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+  function validateForm() {
+    var name = document.getElementById("name").value;
+    if (name == "") {
+      alert("Name must be filled out");
+      return false;
+    }
+    // Add more validation as needed
+  }
+  document.getElementById("submit").addEventListener("click", function(event) {
+    if (!validateForm()) {
+      event.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+  document.getElementById("reset").addEventListener("click", function() {
+    document.getElementById("name").value = ""; // Reset the input field
+  });
+  document.getElementById("name").add
+EventListener("input", function() {
+    if (this.value.trim() === "") {
+      this.classList.add("is-invalid");
+    } else {
+      this.classList.remove("is-invalid");
+    }
+  });
+</script>
+<style>
+#chat-box {
+    width: 300px;
+    height: 350px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #999;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    display: none;
+    padding: 10px;
+    font-size: 14px;
+    z-index: 9999;
+}
+#chat-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #007bff;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 9999;
+}
+</style>
+
+<div id="chat-btn">💬</div>
+
+<div id="chat-box">
+    <h5>Virtual Assistant</h5>
+    <div id="chat-area" style="height:250px; overflow-y:auto; border:1px solid #ddd; padding:5px;"></div>
+    <input type="text" id="user-input" class="form-control" placeholder="Type your message...">
+</div>
+
+<script>
+document.getElementById("chat-btn").onclick = function(){
+    var chatBox = document.getElementById("chat-box");
+    chatBox.style.display = (chatBox.style.display === "block") ? "none" : "block";
+};
+
+document.getElementById("user-input").addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        let msg = this.value;
+        document.getElementById("chat-area").innerHTML += "<b>You:</b> " + msg + "<br>";
+
+        fetch(`/virtual_assistant/?msg=${msg}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("chat-area").innerHTML += "<b>Assistant:</b> " + data.reply + "<br>";
+        });
+
+        this.value = "";
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WODC FTMS</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  {% include 'link.html' %}
+</head>
+
+
+{% include 'ase.html' %}
+
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">EMPLOYEE</h1>
+        </div><!-- /.col -->
+
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Edit profile</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+          
+
+            
+          <form method="post" action="{% url 'IT/edit_profile' %}">
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="name">Employee Name:</label>
+                    <input type="text" name="name" value="{{ it_user.name }}"
+                          value="{{ profile.name }}" placeholder="Enter Employee Name" required>
+
+                    <label for="username">User Name:</label>
+                    <input type="text" name="username" value="{{ it_user.username }}"
+                          value="{{ profile.username }}" placeholder="Enter User Name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" value="{{ it_user.email_id }}"
+                          value="{{ profile.email_id }}" placeholder="Enter Email" required>
+
+                    <label for="mobile">Phone Number:</label>
+                    <input type="text" name="phone" value="{{ it_user.mobile }}"
+                          value="{{ profile.mobile }}" placeholder="Enter Phone Number" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Update</button>
+              <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+                        {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ message }}
+            </div>
+          </form>
+
+          </div>
+          <!-- /.card -->
+      
+         
+
+</div>
+
+<!-- /.content -->
+<{% include 'footer.html' %}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- wrapper -->
+
+<!-- jQuery -->
+<!-- jQuery -->
+
+{% include 'scriptfile.html' %}
